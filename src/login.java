@@ -40,9 +40,9 @@ public class login extends javax.swing.JFrame {
 
         jLabel1.setText("Votacion 2017");
 
-        jLabel2.setText("USUARIO");
+        jLabel2.setText("USUARIO:");
 
-        jLabel3.setText("CONTRASEÑA");
+        jLabel3.setText("CONTRASEÑA:");
 
         jButton1.setText("Enviar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +87,7 @@ public class login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(155, 155, 155)
                         .addComponent(jLabel1)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

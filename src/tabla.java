@@ -19,24 +19,33 @@ public class tabla extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(tabla.this);
 
-        
+        // conexion a la BD
         String str;
         Connection con;
         Statement stmt;  
         try {
             Connection conx = DriverManager.getConnection ("jdbc:mysql://localhost/votacion?user=root&password=");        
-            stmt= conx.createStatement();                                    
-            ResultSet rs = stmt.executeQuery("SELECT * from usuario");
+            stmt= conx.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(*) as total from ccedula");
+            rs.next();
+            int total = rs.getInt("total");
+                                                
+            rs = stmt.executeQuery("select partido_id, nombre,count(partido_id) as contador , count(partido_id)/"+total+" as porcentaje from ccedula as cc join partido as p on cc.partido_id = p.id group by(partido_id);");
             
-            String[]ttl={"ID","NOMBRE","PASSWORD"};
-            String[]rst=new String[6];
+            String[]ttl ={"ID","NOMBRE","CONTADOR","PORCENTAJE"};
+            String[]rst = new String[6];
             DefaultTableModel model=new DefaultTableModel(null,ttl);
+            
             while(rs.next()){
-                rst[0]=rs.getString("id")+"";
-                rst[1]=rs.getString("nombre");
-                rst[2]=rs.getString("password")+"";
+                rst[0] = rs.getString("partido_id");
+                rst[1] = rs.getString("nombre");
+                rst[2] = rs.getInt("contador")+ "";
+                float porcentaje = Math.round(rs.getFloat("porcentaje")*100);
+                
+                rst[3] = porcentaje + "%";
                 model.addRow(rst);
             }
+            
             jTable1.setModel(model);            
         }
         catch(SQLException sqle){

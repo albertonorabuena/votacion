@@ -28,7 +28,7 @@ public class tabla extends javax.swing.JFrame {
             stmt= conx.createStatement();                                    
             ResultSet rs = stmt.executeQuery("SELECT * from usuario");
             
-            String[]ttl={"ID","NOMBRE","PASSWORD"};
+            String[]ttl={"PARTIDO ID","NOMBRE","PASSWORD"};
             String[]rst=new String[6];
             DefaultTableModel model=new DefaultTableModel(null,ttl);
             while(rs.next()){

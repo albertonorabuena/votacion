@@ -18,6 +18,30 @@ public class tabla extends javax.swing.JFrame {
     public tabla() {
         initComponents();
         this.setLocationRelativeTo(tabla.this);
+
+        
+        String str;
+        Connection con;
+        Statement stmt;  
+        try {
+            Connection conx = DriverManager.getConnection ("jdbc:mysql://localhost/votacion?user=root&password=");        
+            stmt= conx.createStatement();                                    
+            ResultSet rs = stmt.executeQuery("SELECT * from usuario");
+            
+            String[]ttl={"ID","NOMBRE","PASSWORD"};
+            String[]rst=new String[6];
+            DefaultTableModel model=new DefaultTableModel(null,ttl);
+            while(rs.next()){
+                rst[0]=rs.getString("id")+"";
+                rst[1]=rs.getString("nombre");
+                rst[2]=rs.getString("password")+"";
+                model.addRow(rst);
+            }
+            jTable1.setModel(model);            
+        }
+        catch(SQLException sqle){
+            sqle.printStackTrace();
+        }          
     }
 
     /**
